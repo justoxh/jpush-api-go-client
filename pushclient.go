@@ -25,10 +25,13 @@ type PushClient struct {
 	BaseUrl      string
 }
 
-func NewPushClient(secret, appKey string) *PushClient {
+func NewPushClient(secret, appKey string,apiUrl string) *PushClient {
 	//base64
 	auth := "Basic " + base64Coder.EncodeToString([]byte(appKey+":"+secret))
-	pusher := &PushClient{secret, appKey, auth, HOST_NAME_SSL}
+	if apiUrl =="" {
+		apiUrl = HOST_NAME_SSL
+	}
+	pusher := &PushClient{secret, appKey, auth, apiUrl}
 	return pusher
 }
 
